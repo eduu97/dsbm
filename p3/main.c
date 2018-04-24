@@ -122,3 +122,18 @@ int main(void){
 return 0;
 
 }
+
+int main(void){ while(true){
+
+	 char string = ' ';
+	 LCD_SendString("X:");
+	 LCD_SendString(itoa( readAccel (0x29,1),&string,10));
+	 LCD_SendString("Y:");
+	 LCD_SendString(itoa( readAccel (0x2B,1),&string,10));
+	 LCD_SendString("Z:");
+	 LCD_SendString(itoa( readAccel (0x2D,1),&string,10));
+	 SLEEP_MS(200);
+	 LCD_GotoXY(0,0);
+	// LCD_ClearDisplay();
+
+ }
