@@ -18,31 +18,25 @@
 
 // Init the accelerometer SPI bus
 void initAccel(void)
- {
+{
+//Habilitar el rellotge del perifèric SPI1 del bus APB2
+(RCC->APB2ENR)=((RCC->APB2ENR)&0x0FFF)|(1*RCC_APB2ENR_SPI1EN);
+//Configurar el registre CR1
+//Configurar CPOL i CPHA (1,1)
+SPI1->CR1=(SPI1->CR1)|SPI_CR1_CPHA;
+SPI1->CR1=(SPI1->CR1)|SPI_CR1_CPOL;
+//Configurar DFF=0
+SPI1->CR1=((SPI1->CR1)&(~SPI_CR1_DFF));
+//Configurar BR[2:0] amb el valor obtingut a EP1
+SPI1->CR1=((SPI1->CR1)&(~SPI_CR1_BR))|(3*SPI_CR1_BR_0);
+//Configurar SSM i SSI (1,1)
+SPI1->CR1=((SPI1->CR1)&0x0FFF)|(3*SPI_CR1_SSI);
+//Configurar el pin PE3 que fa de nCS com GPIO de sortida Push-Pull i posar-lo a nivell alt (slave no seleccionat). Aquest punt, de fet, es opcional perquè el sistema arrenca després de baseInit( ) en aquest estat.
+//Activar SPE i MSTR al registre CR1
+SPI1->CR1=(SPI1->CR1)|(SPI_CR1_SPE);
+SPI1->CR1=(SPI1->CR1)|(SPI_CR1_MSTR);
 
-	RCC->APB2ENR = (RCC->APB2ENR)|(RCC_APB2ENR_SPI1EN);		//2^12 bit SPI1 EN (constant defined)
-
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_CPOL;		//Inactive line for high level
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_CPHA;		//Data is read with the second flank of the clock
-
-	SPI1->CR1 = (SPI1->CR1)&(~SPI_CR1_DFF);		//8 bits format
-
-	SPI1->CR1 = ((SPI1->CR1)&(~ SPI_CR1_BR))|SPI_CR1_BR_0|SPI_CR1_BR_1;	//n = 3 -> f/16 = 84/16 = 5.25MHz
-
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_SSM;		//nCs input mode
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_SSI;		//Software management -> '1'
-
-
-	writeAccel(0x20,0x47);	//PD = 1, X,Y,Z = 1
-
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_SPE;		//Peripheral enabled
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_MSTR;		//Controller is Master
-
-
-	DELAY_US(3000);
-
-
- }
+}
 
 
 /********** PUBLIC FUNCTIONS ALREADY IMPLEMENTED ***************
