@@ -12,7 +12,7 @@
 
 
 
-/*int32_t meanValue(int32_t N, int32_t reg){
+int32_t meanValue(int32_t N, int32_t reg){
 	int32_t i;
 	int32_t result=0;
 	for(i=0;i<N;i++){
@@ -47,12 +47,12 @@ void refreshDisplay(void){
 
 		LCD_ClearDisplay();
 
-		LCD_GotoXY(0,0);
+		/*LCD_GotoXY(0,0);
 		LCD_SendChar('X');
 
 		LCD_GotoXY(0,1);
 		LCD_SendChar('Y');
-
+		*/
 
 		SLEEP_MS(10);
 		int32_t readXVal = meanValue(10,0x29);
@@ -66,8 +66,8 @@ void refreshDisplay(void){
 
 	}
 
-}*/
-/*
+}
+
 
 int main(void){
 
@@ -82,7 +82,7 @@ int main(void){
 	return 0;
 }
 
-
+/*
 int main(void)
 {
 
@@ -103,7 +103,7 @@ int main(void)
 
 */
 
-int main(void){
+/*int main(void){
 
 	baseInit();
 	LCD_Init();
@@ -123,21 +123,4 @@ int main(void){
 
 return 0;
 
-}
-/*int main(void)
-{
-// Basic initializations
-baseInit();
-LCD_Init();
-initAccel();
-char direccio[6];
-while(true){
-int32_t numero= readAccel(0x2B,(int32_t)false);
-itoa(numero,direccio,(int32_t)10);
-LCD_ClearDisplay();
-LCD_GotoXY(0,0);
-LCD_SendString(direccio);
-SLEEP_MS(500);
-}
-return 0 ;
 }*/
