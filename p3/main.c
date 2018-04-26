@@ -1,9 +1,3 @@
-/*
- * accelMain.c
- *
- *  Created on: 9 dic. 2017
- *      Author: sergi
- */
 
 
 #include "Base.h"     // Basic definitions
