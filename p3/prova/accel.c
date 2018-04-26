@@ -1,3 +1,21 @@
+void initAccel(void) {
+//Habilitar rellotge del perifèric corresponent, en aquest cas
+l'SPI1
+RCC -> APB2ENR |= (1 << 12);
+SPI1 -> CR1 &= 0xFC80; // "1111 1100 1000 0000"
+SPI1 -> CR1 |= 0x035F; // "0000 0011 0101 1111"
+
+writeAccel(0x20, 0x47);
+// Prova de lectura del valor dels eixos de l'acceleròmetre
+int x, y;
+char string;
+x = readAccel(0x29, 0);
+itoa(x, &string, 16);
+LCD_SendString(&string);
+y = readAccel(0x2B, 1);
+}
+
+
 /**************************************************************
 
  a c c e l . h
