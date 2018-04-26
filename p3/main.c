@@ -69,7 +69,7 @@ void refreshDisplay(void){
 }
 
 
-int main(void){
+/*int main(void){
 
 	baseInit();
 	LCD_Init();
@@ -82,8 +82,8 @@ int main(void){
 	return 0;
 }
 
-
-int main(void)
+*/
+/*int main(void)
 {
 
 	baseInit();
@@ -99,9 +99,9 @@ int main(void)
 
 	while(1);
 	return 0;
-}
+}*/
 
-
+/*
 int main(void){
 
 	baseInit();
@@ -121,19 +121,25 @@ int main(void){
 
 return 0;
 
-}
+}*/
 
-int main(void){ while(true){
+int main(void){  //llegeix el valor de l'eix Y i el printa per pantalla
+	baseInit();
+	LCD_Init();
+	initAccel();
+	initDisplay();
+	LCD_ClearDisplay();
+	DELAY_US(40);
 
-	 char string = ' ';
-	 LCD_SendString("X:");
-	 LCD_SendString(itoa( readAccel (0x29,1),&string,10));
-	 LCD_SendString("Y:");
-	 LCD_SendString(itoa( readAccel (0x2B,1),&string,10));
-	 LCD_SendString("Z:");
-	 LCD_SendString(itoa( readAccel (0x2D,1),&string,10));
-	 SLEEP_MS(200);
-	 LCD_GotoXY(0,0);
-	// LCD_ClearDisplay();
+	while(1){
+		char *str="";
+		LCD_SendString("Y: ");
+		LCD_SendString(itoa( readAccel (0x2B,1),str,10));
+		SLEEP_MS(200);
+		LCD_GotoXY(0,0);
+		LCD_ClearDisplay();
 
  }
+ return 0;
+}
+
