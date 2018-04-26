@@ -41,32 +41,7 @@ void initAccel ( void ) {
  SPI1 -> CR1 |= SPI_CR1_SPE | SPI_CR1_MSTR ;
 
  }
-/*void initAccel(void)
- {
 
-	RCC->APB2ENR = (RCC->APB2ENR)|(RCC_APB2ENR_SPI1EN);		//2^12 bit SPI1 EN (constant defined)
-
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_CPOL;		//Inactive line for high level
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_CPHA;		//Data is read with the second flank of the clock
-
-	SPI1->CR1 = (SPI1->CR1)&(~SPI_CR1_DFF);		//8 bits format
-
-	SPI1->CR1 = ((SPI1->CR1)&(~ SPI_CR1_BR))|SPI_CR1_BR_0|SPI_CR1_BR_1;	//n = 3 -> f/16 = 84/16 = 5.25MHz
-
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_SSM;		//nCs input mode
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_SSI;		//Software management -> '1'
-
-
-	//writeAccel(0x20,0x47);	//PD = 1, X,Y,Z = 1
-
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_SPE;		//Peripheral enabled
-	SPI1->CR1 = (SPI1->CR1)|SPI_CR1_MSTR;		//Controller is Master
-
-
-	DELAY_US(3000);
-
-
- }*/
 
 
 /********** PUBLIC FUNCTIONS ALREADY IMPLEMENTED ***************
@@ -147,49 +122,6 @@ int32_t readAccel(int32_t reg,int32_t sign) {
 	 // Return as signed value
 	 return *psigned;
  }
-
-
-/*int32_t writeAccel(int32_t reg,int32_t data){
-
-	 // Limit the register number to 6 bits 0..63
-	 reg&=0x3B;
-
-	 // Although it is not mandatory for read,
-	 // we verify its is not a reserved register
-	 if (reg<0x0F) return 1001;
-	 if ((reg<0x20)&&(reg>0x0F)) return 1001;
-	 if ((reg<0x27)&&(reg>0x23)) return 1001;
-	 if ((reg<0x30)&&(reg>0x2D)) return 1001;
-
-	 LIS_CS_PORT->BSRR.H.clear=LIS_CS_BIT;
-
-	 reg&=(!BIT(7));
-
-   	 SPI1->DR=reg;
-
-	 while (!((SPI1->SR) & BIT0));
-
-	  // Empty the receiver buffer
-	  // We don't need the returned information
-	  val=(SPI1->DR);
-
-	  SPI1->DR=data;		//PD = 1, X,Y,Z = 1
-
-	  // Small delay before reading the buffer
-	  DELAY_US(2);
-
-	  // Wait to the receiver buffer to fill
-	  while (!((SPI1->SR) & BIT0));
-
-	  // Recover the response in the reception buffer
-	  val=(SPI1->DR);
-
-	  // Deactivates Chip Select
-	  LIS_CS_PORT->BSRR.H.set=LIS_CS_BIT;
-
-	  return 1;
-}*/
-
 
 
 
