@@ -12,7 +12,7 @@
 
 
 
-int32_t meanValue(int32_t N, int32_t reg){
+/*int32_t meanValue(int32_t N, int32_t reg){
 	int32_t i;
 	int32_t result=0;
 	for(i=0;i<N;i++){
@@ -66,10 +66,10 @@ void refreshDisplay(void){
 
 	}
 
-}
+}*/
+/*
 
-
-/*int main(void){
+int main(void){
 
 	baseInit();
 	LCD_Init();
@@ -82,8 +82,8 @@ void refreshDisplay(void){
 	return 0;
 }
 
-*/
-/*int main(void)
+
+int main(void)
 {
 
 	baseInit();
@@ -99,9 +99,10 @@ void refreshDisplay(void){
 
 	while(1);
 	return 0;
-}*/
+}
 
-/*
+*/
+
 int main(void){
 
 	baseInit();
@@ -117,29 +118,26 @@ int main(void){
 		SLEEP_MS(500);
 		LCD_ClearDisplay();
 
+
 	}
 
 return 0;
 
-}*/
-
-int main(void){  //llegeix el valor de l'eix Y i el printa per pantalla
-	baseInit();
-	LCD_Init();
-	initAccel();
-	initDisplay();
-	LCD_ClearDisplay();
-	DELAY_US(40);
-
-	while(1){
-		char *str="";
-		LCD_SendString("Y: ");
-		LCD_SendString(itoa( readAccel (0x2B,1),str,10));
-		SLEEP_MS(200);
-		LCD_GotoXY(0,0);
-		LCD_ClearDisplay();
-
- }
- return 0;
 }
-
+/*int main(void)
+{
+// Basic initializations
+baseInit();
+LCD_Init();
+initAccel();
+char direccio[6];
+while(true){
+int32_t numero= readAccel(0x2B,(int32_t)false);
+itoa(numero,direccio,(int32_t)10);
+LCD_ClearDisplay();
+LCD_GotoXY(0,0);
+LCD_SendString(direccio);
+SLEEP_MS(500);
+}
+return 0 ;
+}*/
