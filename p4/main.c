@@ -1,9 +1,3 @@
-/*
- * intMain.c
- *
- *  Created on: 10 dic. 2017
- *      Author: sergi
- */
 
 
 #include "Base.h"     // Basic definitions
