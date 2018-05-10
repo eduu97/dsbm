@@ -93,7 +93,7 @@ while(1){
 	while(SF == switchFlag1);
 	if((EXTI->PR) != ((EXTI->PR)|(EXTI_PR_PR5))){
 		interruptCode = readKeyboard();
-		LCD_SendString(interruptCode);		//Quiz� haya que pasarlo a string(puntero)
+		LCD_SendString(interruptCode);		//Quizá haya que pasarlo a string(puntero)
 	}
 }
 }
@@ -108,7 +108,7 @@ CH_IRQ_HANDLER(EXTI9_5_IRQHandler)
  // Start of the ISR code
 
 /*
-� Esborrar el bit del registre Pending register (PR) per indicar que s'ha at�s la interrupci�.
+• Esborrar el bit del registre Pending register (PR) per indicar que s'ha atès la interrupció.
 */
 	EXTI->PR = (EXTI->PR)|(EXTI_PR_PR6);	// An '1' is written
 	EXTI->PR = (EXTI->PR)|(EXTI_PR_PR8);
@@ -117,7 +117,7 @@ CH_IRQ_HANDLER(EXTI9_5_IRQHandler)
 	
 
 /*
-� Escriure un valor diferent de zero a la variable switchFlag.
+• Escriure un valor diferent de zero a la variable switchFlag.
 */
 
 	switchFlag1 = 1;
@@ -128,4 +128,40 @@ CH_IRQ_HANDLER(EXTI9_5_IRQHandler)
 
 
 
+/*int32_t readKeyboard ( void ) {
+ // Just to remember it ODR ( output ) and IDR ( input )
 
+ uint32_t j, k;
+
+ // We put all the rows to ’1 ’
+ (GPIOD - >ODR) |= BIT (0) |BIT (1) |BIT (2) |BIT (3) ;
+
+for(j=0; j <4; j++) {
+ // We prove row by row searching any ’0 ’ in a
+
+
+
+ (GPIOD - >ODR) &= (~ BIT(j) ) ;
+ // We wait in order to don ’t have problems in
+
+
+ DELAY_US (10) ;
+ for (k=6; k <10; k++) {
+ // If the column is ’0 ’ we set the
+
+
+ if (!(( GPIOD - > IDR) & BIT(k) ) ) {
+ (GPIOD - >ODR) |= BIT(j) ;
+ // We return the value with
+
+
+ return (4* j+k -6) ;
+ }
+ }
+ // If this row does not match , we put it
+
+
+ (GPIOD - >ODR) |= BIT(j) ;
+ }
+ return -1;
+}*/
